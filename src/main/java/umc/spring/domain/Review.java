@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import umc.spring.domain.common.BaseEntity;
 
 @Entity
@@ -20,6 +21,7 @@ import umc.spring.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Setter
 public class Review extends BaseEntity {
 
   @Id
@@ -30,7 +32,7 @@ public class Review extends BaseEntity {
   private String title;
 
   @Column(nullable = false)
-  private Float score;
+  private Double score;
 
   @ManyToOne
   @JoinColumn(name = "member_id")

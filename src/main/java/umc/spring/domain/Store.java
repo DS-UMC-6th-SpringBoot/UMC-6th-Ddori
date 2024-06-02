@@ -56,4 +56,8 @@ public class Store extends BaseEntity {
     this.region = region;
     region.getStoreList().add(this);
   }
+
+  public void updateScore(Double score) {
+    this.score = score;
+  }
 }
