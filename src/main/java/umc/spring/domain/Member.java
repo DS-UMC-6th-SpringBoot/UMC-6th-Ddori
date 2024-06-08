@@ -1,5 +1,6 @@
 package umc.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -75,5 +76,6 @@ public class Member extends BaseEntity {
   private List<Review> reviewList = new ArrayList<>();
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  @JsonBackReference
   private List<MemberMission> memberMissionList = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package umc.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,8 +42,10 @@ public class Store extends BaseEntity {
   private Region region;
 
   @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+  @JsonBackReference
   private List<Mission> missionList = new ArrayList<>();
 
   @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+  @JsonBackReference
   private List<Review> reviewList = new ArrayList<>();
 }

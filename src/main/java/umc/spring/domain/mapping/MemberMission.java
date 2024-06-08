@@ -1,5 +1,6 @@
 package umc.spring.domain.mapping;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,9 +37,11 @@ public class MemberMission extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
+  @JsonBackReference
   private Member member;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "mission_id")
+  @JsonBackReference
   private Mission mission;
 }
