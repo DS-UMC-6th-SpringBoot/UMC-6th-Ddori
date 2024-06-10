@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.MemberConverter;
+import umc.spring.converter.StoreConverter;
 import umc.spring.domain.Member;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Review;
+import umc.spring.domain.mapping.MemberMission;
 import umc.spring.service.MemberService.MemberCommandService;
 import umc.spring.service.MemberService.MemberQueryService;
 import umc.spring.validation.annotation.CheckPage;
@@ -48,6 +51,13 @@ public class MemberRestController {
   public ApiResponse<?> getMemberReviewList(@CheckPage @RequestParam(name = "page") Integer page) {
     Page<Review> reviewList = memberQueryService.getReviewList(1L, page);
     return ApiResponse.onSuccess(MemberConverter.reviewPreViewListDTO(reviewList));
+  }
+
+  @Operation(summary = "사용자가 진행중인 미션 목록 조회 API", description = "사용자의 진행중인 미션들의 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
+  @GetMapping("/missions")
+  public ApiResponse<?> getMemberMissionList(@CheckPage @RequestParam(name = "page") Integer page) {
+    Page<MemberMission> memberMissionList = memberQueryService.getMemberMissionList(1L, page);
+    return ApiResponse.onSuccess(MemberConverter.missionPreViewListDTO(memberMissionList));
   }
 
 }
