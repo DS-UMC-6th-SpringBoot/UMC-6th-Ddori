@@ -9,19 +9,30 @@ import umc.spring.converter.MemberConverter;
 import umc.spring.converter.MemberPreferConverter;
 import umc.spring.domain.FoodCategory;
 import umc.spring.domain.Member;
+import umc.spring.domain.Mission;
+import umc.spring.domain.enums.MissionStatus;
+import umc.spring.domain.mapping.MemberMission;
 import umc.spring.domain.mapping.MemberPrefer;
 import umc.spring.repository.FoodCategoryRepository;
+import umc.spring.repository.MemberMissionRepository;
 import umc.spring.repository.MemberRepository;
+import umc.spring.repository.MissionRepository;
 import umc.spring.web.dto.MemberRequestDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import umc.spring.web.dto.MemberRequestDTO.CompleteMissionDto;
+
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class MemberCommandServiceImpl implements MemberCommandService{
 
   private final MemberRepository memberRepository;
+
+  private final MemberMissionRepository memberMissionRepository;
+
+  private final MissionRepository missionRepository;
 
   private final FoodCategoryRepository foodCategoryRepository;
 
@@ -41,4 +52,26 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
     return memberRepository.save(newMember);
   }
+
+  @Override
+  public MemberMission completeMemberMission(CompleteMissionDto request) {
+    Member member = memberRepository.findById(request.getMemberId()).get();
+    Mission mission = missionRepository.findById(request.getMissionId()).get();
+
+    MemberMission memberMission = memberMissionRepository.findByMissionAndMember(mission, member);
+
+    memberMission.setStatus(MissionStatus.COMPLETE);
+    return memberMissionRepository.save(memberMission);
+  }
+
+  @Override
+  public boolean isMemberMissionCompleted(MemberRequestDTO.CompleteMissionDto request) {
+    Member member = memberRepository.findById(request.getMemberId()).get();
+    Mission mission = missionRepository.findById(request.getMissionId()).get();
+
+    MemberMission memberMission = memberMissionRepository.findByMissionAndMember(mission ,member);
+
+    return memberMission.getStatus() == MissionStatus.COMPLETE;
+  }
+
 }

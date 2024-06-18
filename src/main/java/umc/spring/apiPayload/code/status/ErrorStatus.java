@@ -34,7 +34,10 @@ public enum ErrorStatus implements BaseErrorCode {
   STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_4001","가게가 없습니다."),
 
   // page Error
-  PAGE_SIZE_TOO_SMALL(HttpStatus.NOT_FOUND, "PAGE_4001","페이지 범위가 너무 작습니다.");
+  PAGE_SIZE_TOO_SMALL(HttpStatus.NOT_FOUND, "PAGE_4001","페이지 범위가 너무 작습니다."),
+
+  // MemberMission Error
+  ALREADY_COMPLETE_MEMBER_MISSION(HttpStatus.BAD_REQUEST, "MEMBER_MISSION4001", "이미 미션이 진행 완료 상태입니다.");
 
   private final HttpStatus httpStatus;
   private final String code;

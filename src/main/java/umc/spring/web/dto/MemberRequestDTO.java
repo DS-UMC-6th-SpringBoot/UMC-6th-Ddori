@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 import lombok.Getter;
+import umc.spring.validation.annotation.CompleteMission;
 import umc.spring.validation.annotation.ExistCategories;
 
 public class MemberRequestDTO {
@@ -27,5 +28,14 @@ public class MemberRequestDTO {
     String specAddress;
     @ExistCategories
     List<Long> preferCategory;
+  }
+
+  @CompleteMission
+  @Getter
+  public static class CompleteMissionDto {
+    @NotNull
+    Long memberId;
+    @NotNull
+    Long missionId;
   }
 }

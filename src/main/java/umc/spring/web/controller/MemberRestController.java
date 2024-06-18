@@ -26,6 +26,7 @@ import umc.spring.domain.mapping.MemberMission;
 import umc.spring.service.MemberService.MemberCommandService;
 import umc.spring.service.MemberService.MemberQueryService;
 import umc.spring.validation.annotation.CheckPage;
+import umc.spring.validation.annotation.CompleteMission;
 import umc.spring.validation.annotation.ExistStore;
 import umc.spring.web.dto.MemberRequestDTO;
 import umc.spring.web.dto.MemberResponseDTO;
@@ -60,4 +61,10 @@ public class MemberRestController {
     return ApiResponse.onSuccess(MemberConverter.missionPreViewListDTO(memberMissionList));
   }
 
+  @PostMapping("/missions/complete")
+  @Operation(summary = "진행 중인 미션 진행 완료로 바꾸기 API", description = "진행 중인 미션의 상태를 완료로 변경하는 API 입니다.")
+  public ApiResponse<?> completeMemberMission(@CompleteMission @RequestBody @Valid MemberRequestDTO.CompleteMissionDto request) {
+    MemberMission memberMission  = memberCommandService.completeMemberMission(request);
+    return ApiResponse.onSuccess(MemberConverter.memberMissionPreViewDTO(memberMission));
+  }
 }
