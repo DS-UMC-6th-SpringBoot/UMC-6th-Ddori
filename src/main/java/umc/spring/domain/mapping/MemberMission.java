@@ -1,5 +1,6 @@
 package umc.spring.domain.mapping;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import umc.spring.domain.FoodCategory;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
@@ -22,6 +24,7 @@ import umc.spring.domain.enums.MissionStatus;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -36,9 +39,11 @@ public class MemberMission extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
+  @JsonBackReference
   private Member member;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "mission_id")
+  @JsonBackReference
   private Mission mission;
 }

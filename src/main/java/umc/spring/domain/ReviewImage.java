@@ -1,4 +1,4 @@
-package umc.spring.domain.mapping;
+package umc.spring.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import umc.spring.domain.FoodCategory;
-import umc.spring.domain.Member;
 import umc.spring.domain.common.BaseEntity;
 
 @Entity
@@ -21,28 +19,15 @@ import umc.spring.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberPrefer extends BaseEntity {
+public class ReviewImage extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_id")
-  private Member member;
+  private String imageUrl;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id")
-  private FoodCategory foodCategory;
-
-  public void setMember(Member member){
-    if(this.member != null)
-      member.getMemberPreferList().remove(this);
-    this.member = member;
-    member.getMemberPreferList().add(this);
-  }
-
-  public void setFoodCategory(FoodCategory foodCategory){
-    this.foodCategory = foodCategory;
-  }
+  @JoinColumn(name = "review_id")
+  private Review review;
 }
